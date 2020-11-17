@@ -17,16 +17,13 @@ jobs:
           filename: 'lavalink-nodejs.zip'
           exclusions: '*.git* *.eslintrc.json *package-lock.json'
       - name: Enviar para a realese
-        uses: softprops/action-gh-release@v1
+        uses: marvinpinto/action-automatic-releases@master
         with:
-          files: |
-            ./lavalink-nodejs.zip
-          tag_name: ${{ steps.info.outputs.version }}
-          name: Lavalink Update v${{ steps.info.outputs.version }}
-          draft: true
+          repo_token: "${{secrets.GITHUB_TOKEN}}"
           prerelease: false
-        env: 
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          automatic_release_tag: "${{ steps.info.outputs.version }}"
+          files: |
+            *.zip
   artifact:
     name: Criação de Artifacts
     runs-on: ubuntu-latest
